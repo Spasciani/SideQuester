@@ -1,44 +1,27 @@
-import React from 'react';
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import React, { useState } from "react";
+import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { UserLogin } from "./pages/userLogin"; 
+import { UserRegister } from "./pages/userRegister"; 
+import Home from './pages/home'
+import Navbar from "./components/Navbar/navbar";
 
-const libraries = ['places'];
-const mapContainerStyle = {
-  width: '100vw',
-  height: '100vh',
-};
-const center = {
-  lat: 29.6436325, // default latitude
-  lng: -82.3549302, // default longitude
-};
-
-const App = () => {
-  const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: 'AIzaSyCdk5BiITfyQaeI538h4nfAyeJp_mFWnCM',
-    libraries,
-  });
-
-  if (loadError) {
-    return <div>Error loading maps</div>;
+export default function App(){
+  const [setCurrentForm] = useState('login');
+  const toggleForm= (forName) => {
+    setCurrentForm(forName);
   }
-
-  if (!isLoaded) {
-    return <div>Loading maps</div>;
-  }
-
-  return (
-    <div>
-      <GoogleMap
-        mapContainerStyle={mapContainerStyle}
-        zoom={15}
-        center={center}
-      >
-        <Marker position={center} />
-      </GoogleMap>
-    </div>
-  );
-};
-
-export default App;
-
-
+  return(
+    <Router>
+      <div className="App">
+        <Navbar/>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<UserLogin onFormSwitch={toggleForm} />} />
+          <Route path="/register" element={<UserRegister onFormSwitch={toggleForm} />} />
+        </Routes>
+      </div>
+    </Router>
+);
+}
 
