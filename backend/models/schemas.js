@@ -6,8 +6,10 @@ const userSchema = new Schema({
     email: {type:String},
     password: {type:String},
 
-    entryDate: {type:DataTransfer, default:Date.now}
+    //entryDate: {type:Data, default:Date.now}
 
 })
 
 const Users = mongoose.model('Users', userSchema, 'users')
+
+//schema posts
