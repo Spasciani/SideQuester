@@ -36,7 +36,19 @@ module.exports = async() => {
 
 }
 
-const port = process.env.PORT || 4000
+//const port = process.env.PORT || 4000
+const port = 4000
 const server = app.listen(port, () => {
     console.log('Server is running on port 4000' )
 })
+
+
+/*
+mongoose.connect(process.env.DB_URI, {dbName:"ISideQuestDB"})
+.then(() => {
+    console.log("connected to DB successfulyy");
+
+    app.listen(4000, "localhost", () => console.log("listening on port 4000"));
+})
+.catch((err)=> console.log(err));
+*/

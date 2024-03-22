@@ -13,3 +13,7 @@ const userSchema = new Schema({
 const Users = mongoose.model('Users', userSchema, 'users')
 
 //schema posts
+
+//My Schema Names
+const mySchemas = {'Users':Users}
+module.exports = mySchemas
