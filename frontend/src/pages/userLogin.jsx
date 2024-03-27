@@ -1,21 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { Link } from 'react-router-dom';
+import axios from "axios"
 
 export const UserLogin = (props) => {
     const [email, setEmail] = useState('');
-    const [pass, setPass] = useState('');
+    const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
+
+    const axiosPostData = async() => {
+        const postData = {
+            email: email,
+            password: password
+        }
+        //await axios.post('http://localhost:4000/users/send', postData) ;/Send would be if we have an action
+        if (!email || !password) {
+            setError(<p className="required">Please fill out all credentials.</p>)
+        } else {
+            await axios.post('http://localhost:4000/users/log-in', postData)
+                .then(res => setError(<p className = "success">{res.data}</p>))
+
+
+        }
+    }
     const handleSubmit = (e) => {
-        e.preventDefault();
-        console.log(email);
+        e.preventDefault()
+        axiosPostData()
     }
     return (
         <div className="auth-form-container">
             <h2> Login! </h2>
             <form className="login-form" onSubmit={handleSubmit}>
             <label htmlFor="email">Email</label>
-            <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="youremail@gmail.com" id="email" name="email" />
+            <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="youremail@gmail.com" id="email" required name="email" />
             <label htmlFor="password">Password</label>
-            <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="*******" id="password" name="password" />
+            <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="*******" id="password" required name="password" />
+
+            {error}
+
             <button type="submit">Log In</button>
         </form>
         <Link to="/register" className='link-btn'>Don't have an account? Register here! </Link>

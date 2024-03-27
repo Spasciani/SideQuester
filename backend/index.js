@@ -24,17 +24,10 @@ app.use('/', router)
 
 
 //MongoDB setup
-const dbOptions = {useNewUrlParser:true, useUnifiedTopology:true}
-//Get the mongooseDB connection
-module.exports = async() => {
-    try {
-        await mongoose.connect(process.env.DB_URI, {})
-        console.log("CONNECTED TO DATABASS SUCCESS") 
-    } catch(error){
-        console.error('COULD NOT CONNECT TO DATABASE', error.message)
-    }
-
-}
+//const dbOptions = {useNewUrlParser:true, useUnifiedTopology:true}
+mongoose.connect(process.env.DB_URI)
+    .then(() => console.log('DB Connected!'))
+    .catch(err => console.log(err))
 
 const port = process.env.PORT || 4000
 //const port = 4000
