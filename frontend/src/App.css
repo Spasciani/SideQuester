@@ -11,10 +11,22 @@
   display:flex;
   flex-direction:column;
 }
+.quest-form{
+  padding: 5rem;
+  display:flex;
+  flex-direction:column;
+}
 .register-form{
   padding: 2rem;
   display:flex;
   flex-direction:column;
+}
+.quest-container{
+  padding: 0.5rem;
+  border: 1px solid white;
+  border-radius: 10px;
+  margin: 0.5rem;
+  background-color: rgba(187, 21, 21, 0.01); 
 }
 .auth-form-container{
   padding: 5rem;
@@ -77,4 +89,25 @@ button{
 /*when we click on the link in navbar*/
 .navbar-menu a:hover {
   color: rgb(24, 23, 47);
+}
+.quest-confirmation-container {
+  display: flex;
+  justify-content: space-between;
+}
+.quest-confirmation-wrapper {
+  text-align: center;
+}
+.quest-details {
+  padding-top: 350px;
+  flex-grow: 1; 
+  margin-right: 20px;
+  text-decoration: underline;
+}
+
+.map-container {
+  padding: 20px;
+  border-radius: 10%;  
+  overflow: hidden;
+  width: 1000px;
+  height: 800px;
 }
