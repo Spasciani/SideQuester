@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from "axios"
 
+//Post information
 export const PostQuest = () => {
     const [name, setName] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
@@ -9,6 +11,7 @@ export const PostQuest = () => {
     const [place, setPlace] = useState('');
     const placeInputRef = useRef(null);
     const [image, setImage] = useState(null);
+    const [error, setError] = useState('')
     const navigate = useNavigate();
     useEffect(() => {
         if (!placeInputRef.current) return;
@@ -22,9 +25,10 @@ export const PostQuest = () => {
             }
         });
     }, []);
-
+    //button pressed when sent
     const handleSubmit = (e) => {
         e.preventDefault();
+        axiosPostData()
         console.log(name, phoneNumber, description, reward, place);
         if (image) {
             console.log('Image name:', image.name);
@@ -38,7 +42,26 @@ export const PostQuest = () => {
             setImage(null);  
         }
     };
-    
+
+    //Handle sending the data to DB
+    const axiosPostData = async() => {
+        const postData = {
+            name: name,
+            phoneNumber: phoneNumber,
+            description: description,
+            reward: reward,
+            place: place,
+            image: image   
+        }
+        //await axios.post('http://localhost:4000/users/send', postData) ;/Send would be if we have an action
+        if (!name || !phoneNumber || !description || !reward || !place) {
+            setError(<p className="required">Please fill out all credentials.</p>)
+        } else {
+            await axios.post('http://localhost:4000/posts/upload', postData)
+                .then(res => setError(<p className = "success">{res.data}</p>))
+
+        }
+    }
 
     return (
         <div className="quest-container">

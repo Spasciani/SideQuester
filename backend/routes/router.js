@@ -47,6 +47,26 @@ router.post('/users/:a', async(req, res) => {
 
 })
 
+//create post
+router.post('/posts/:a', async(req, res)=>{
+    const {name, phoneNumber, description, reward, place} = req.body
+    const action = req.params.a
+    switch(action) {
+        case "upload":
+            const postData = {name: name, phoneNumber: phoneNumber, description: description, reward: reward, place: place}
+            const newPost = new schemas.Posts(postData)
+            const savePost = await newPost.save()
+            res.send('Post Created!')
+            break
+        
+        default:
+            break
+
+    }
+    res.end()
+
+})
+
 // router.get('/users', async(req, res) => {
 //     const users = schemas.Users
 //     const userData = {name: name, email: email, password: password}

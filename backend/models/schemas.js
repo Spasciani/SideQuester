@@ -16,10 +16,12 @@ const userSchema = new Schema({
 
 //Schema for post creation
 const postSchema = new Schema({
-    emailid: {type:String, required: true},
-    title: {type:String, required: true},
+    name: {type:String, required: true},
+    phoneNumber: {type:String, required: true},
     description: {type: String, required: true},
     reward: {type:String, required: true},
+    place: {type:String, required: true},
+    image: {type:String, required: false},
 
 })
 
