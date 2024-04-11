@@ -5,6 +5,7 @@ const uniqueValidator = require('mongoose-unique-validator')
 
 const Schema = mongoose.Schema
 
+//schema for user creation
 const userSchema = new Schema({
     name: {type:String, required: true},
     email: {type:String, required: true, unique: true},
@@ -12,8 +13,20 @@ const userSchema = new Schema({
     //entryDate: {type:Data, default:Date.now}
 
 })
+
+//Schema for post creation
+const postSchema = new Schema({
+    emailid: {type:String, required: true},
+    title: {type:String, required: true},
+    description: {type: String, required: true},
+    reward: {type:String, required: true},
+
+})
+
+
 userSchema.plugin(uniqueValidator)
 const Users = mongoose.model('Users', userSchema, 'users')
+const Posts = mongoose.model('Posts', postSchema, 'posts')
 
 // quest schema placeholder
 // const questSchema = new Schema( {
@@ -24,5 +37,5 @@ const Users = mongoose.model('Users', userSchema, 'users')
 //schema posts
 
 //My Schema Names
-const mySchemas = {'Users':Users}
+const mySchemas = {'Users':Users, 'Posts':Posts}
 module.exports = mySchemas

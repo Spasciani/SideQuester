@@ -15,7 +15,7 @@ router.post('/users/:a', async(req, res) => {
             if(existing_user) {
                 res.send('Email is already in use')
             } else {
-                const userData = {name: name, email: email, password: password}
+                const userData = {name: name, email: email, password: encode(password)}
                 const newUser = new schemas.Users(userData)
                 const saveUser = await newUser.save()
                 res.send('User created!')
@@ -25,7 +25,7 @@ router.post('/users/:a', async(req, res) => {
 
         // log-in attempt
         case "log-in":
-            const attempt = await schemas.Users.findOne({email: email, password: password})
+            const attempt = await schemas.Users.findOne({email: email, password: encode(password)})
             if (!attempt) {
                 res.send('Invalid email or password')
             } else {
@@ -61,4 +61,37 @@ router.get('/users', (req, res) => {
     const userData = [{}]
 })
 */
+
+//Password cypher and decypher
+
+function encode(s){
+    let newS = "";
+
+    for (let i = 0; i < s.length; i++) {
+
+        var hex = Number(s.charCodeAt(i)).toString(16);
+        newS += hex;
+       // let val = s[i].charCodeAt(0).toString(16);
+       // newS += String.fromCharCode(val);
+       //newS += ("000"+ val).slice(-4);
+
+    }
+    return newS;
+}
+
+//Decoder not needed
+/*
+function decode(s){
+    let oldS = "";
+    //let oldVal = Buffer.from(s, 'hex');
+    var hex = s.toString();
+    for(var i = 0; i < hex.length; i +=2){
+        oldS += String.fromCharCode(parseInt(hex.substr(i,2), 16))
+    }
+    return oldS;
+
+}
+*/ 
+
+
 module.exports = router

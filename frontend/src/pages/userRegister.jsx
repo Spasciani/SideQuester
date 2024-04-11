@@ -74,7 +74,7 @@ export const UserRegister = (props) => {
 
                 {error}
 
-            <button type="submit" onClick={handleSubmit}>Log In</button>
+            <button type="submit" onClick={handleSubmit}>Register</button>
         </form>
         <Link to="/login" className='link-btn'>Already have an account? Login here! </Link>
     
