@@ -14,16 +14,16 @@ router.post('/users/:a', async(req, res) => {
         case "register":
             const existing_user = await schemas.Users.findOne({email: email})
             if (!validator.isEmail(email)) {
-                res.send('Email is invalid')
+                res.send({message: 'Email is invalid'})
             } else if (existing_user) {
-                res.send('Email is already in use')
+                res.send({message: 'Email is already in use'})
             } else if (password.length < 8) {
-                res.send('Password must be at least 8 characters long')
+                res.send({message: 'Password must be at least 8 characters long'})
             } else {
                 const userData = {name: name, email: email, password: encode(password)}
                 const newUser = new schemas.Users(userData)
                 const saveUser = await newUser.save()
-                res.send('User created!')
+                res.send({message: 'User created!', redirect: '/login'})
             }
 
             break
@@ -32,9 +32,9 @@ router.post('/users/:a', async(req, res) => {
         case "log-in":
             const attempt = await schemas.Users.findOne({email: email, password: encode(password)})
             if (!attempt) {
-                res.send('Invalid email or password')
+                res.send({message: 'Invalid email or password'})
             } else {
-                res.send('Login successful! Redirecting...')
+                res.send({message: 'Login successful! Redirecting...', redirect: '/'})
             }
             break
 
