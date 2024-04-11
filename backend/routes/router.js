@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const schemas = require('../models/schemas')
+const validator = require('validator')
+
 
 //Create user
 router.post('/users/:a', async(req, res) => {
@@ -11,9 +13,12 @@ router.post('/users/:a', async(req, res) => {
         // register user
         case "register":
             const existing_user = await schemas.Users.findOne({email: email})
-
-            if(existing_user) {
+            if (!validator.isEmail(email)) {
+                res.send('Email is invalid')
+            } else if (existing_user) {
                 res.send('Email is already in use')
+            } else if (password.length < 8) {
+                res.send('Password must be at least 8 characters long')
             } else {
                 const userData = {name: name, email: email, password: encode(password)}
                 const newUser = new schemas.Users(userData)
