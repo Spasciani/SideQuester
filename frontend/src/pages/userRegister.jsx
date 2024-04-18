@@ -49,8 +49,13 @@ export const UserRegister = (props) => {
             setError(<p className="required">Please fill out all credentials.</p>)
         } else {
             await axios.post('http://localhost:4000/users/register', postData)
-                .then(res => setError(<p className = "success">{res.data}</p>))
-
+                .then(function (res) {
+                    setError(<p className = "success">{res.data.message}</p>)
+                    if(res.data.redirect === '/login') {
+                        window.location = '/login'
+                    }
+                })
+                //.then(res => setError(<p className = "success">{res.data}</p>))
         }
     }
 
