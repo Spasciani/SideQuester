@@ -8,6 +8,7 @@ import MapComponent from './pages/maps'
 import Navbar from "./components/Navbar/navbar";
 import { PostQuest } from './pages/postQuest';
 import QuestConfirmation from './pages/afterPost';
+import Test_Navbar from "./components/test-navbar";
 
 export default function App(){
   const [setCurrentForm] = useState('login');
@@ -17,7 +18,8 @@ export default function App(){
   return(
     <Router>
       <div className="App">
-        <Navbar/>
+        <Test_Navbar/>
+        {/* <Navbar/> */}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<UserLogin onFormSwitch={toggleForm} />} />
