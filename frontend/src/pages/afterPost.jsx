@@ -1,37 +1,48 @@
-import React from 'react';
+
+import React, { useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+const defaultCenter = { lat: 29.6463314, lng: -82.353945};
 const QuestConfirmation = () => {
-    const mapRef = React.useRef(null);
+    const mapRef = useRef(null);
     const location = useLocation();
-    const { name, phoneNumber, description, reward, place, image } = location.state;
-
-
-    React.useEffect(() => {
+    
+    const { name, phoneNumber, description, reward, place, image } = location.state || {};
+     useEffect(() => {
         const loadMap = () => {
+            const center = place && place.latitude && place.longitude
+                ? { lat: place.latitude, lng: place.longitude }
+                : defaultCenter;
+
             const map = new window.google.maps.Map(mapRef.current, {
-                center: { lat: 29.6436325, lng: -82.3549302},
-                zoom: 15,
+                center: center,
+                zoom: 13,
             });
+
             new window.google.maps.Marker({
-                position: { lat: 29.6436325, lng: -82.3549302 },
+                position: center,
                 map: map,
-                title: 'Location'
+                title: place ? place.name || 'Selected Location' : 'Default Location'
             });
         };
+
         loadMap();
     }, [place]);
 
+
     return (
-        <div className="quest-confirmation-container" style={{ display: 'flex', justifyContent: 'flex-start', padding: '20px', alignItems: 'stretch', marginLeft: '100px' }}>
+        <div className="quest-confirmation-container" style={{ display: 'flex: 1', padding: '20px', marginLeft: '100px', minHeigh: '500px' }}>
             <div className="quest-details" style={{ flex: 1, paddingRight: '20px' }}>
                 <p><strong>Name:</strong> {name}</p>
                 <p><strong>Phone Number:</strong> {phoneNumber}</p>
                 <p><strong>Description:</strong> {description}</p>
                 <p><strong>Reward:</strong> {reward}</p>
-                <p><strong>Place:</strong> {place}</p>
-                {image && <img src={URL.createObjectURL(image)} alt="Uploaded" />}
-            </div>
-            <div ref={mapRef} className="map-container" style={{ flex: 3, minHeight: '500px' }}>
+                <p><strong>Place:</strong> {place ? place.name : 'Not provided'}</p>
+                <div>
+                    <strong>Image (Optional):</strong>
+                    {image && <img src={image} alt="Uploaded Quest" style={{ width: '400px', display: 'block', marginTop: '10px' }} />}
+                </div>            
+                </div>
+            <div ref={mapRef} className="map-container">
             </div>
         </div>
     );

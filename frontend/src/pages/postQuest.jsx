@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from "axios"
@@ -8,33 +9,42 @@ export const PostQuest = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [description, setDescription] = useState('');
     const [reward, setReward] = useState('');
-    const [place, setPlace] = useState('');
+    // const [place, setPlace] = useState('');
     const placeInputRef = useRef(null);
     const [image, setImage] = useState(null);
     const [error, setError] = useState('')
     const navigate = useNavigate();
+    const [place, setPlace] = useState({ name: '', latitude: null, longitude: null });
+
     
     useEffect(() => {
         if (!placeInputRef.current) return;
-
         const autocomplete = new window.google.maps.places.Autocomplete(placeInputRef.current);
-        autocomplete.setFields(['address_components', 'geometry', 'name']);
+        autocomplete.setFields(['address_components', 'geometry', 'formatted_address', 'name']);
         autocomplete.addListener('place_changed', () => {
             const place = autocomplete.getPlace();
             if (place.geometry) {
-                setPlace(place.name);  
+                setPlace({
+                    name: place.name,
+                    latitude: place.geometry.location.lat(),
+                    longitude: place.geometry.location.lng(),
+                    address: place.formatted_address
+                });
             }
         });
     }, []);
     //button pressed when sent
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        axiosPostData()
+        await axiosPostData(); 
         console.log(name, phoneNumber, description, reward, place);
         if (image) {
             console.log('Image name:', image.name);
+            const imageUrl = URL.createObjectURL(image); 
+            navigate('/quest-confirmation', { state: { name, phoneNumber, description, reward, place, image: imageUrl } });
+        } else {
+            navigate('/quest-confirmation', { state: { name, phoneNumber, description, reward, place, image: null } });
         }
-        navigate('/quest-confirmation', { state: { name, phoneNumber, description, reward, place } });
     };
     const handleImageChange = (e) => {
         if (e.target.files[0]) {
@@ -46,20 +56,24 @@ export const PostQuest = () => {
 
     //Handle sending the data to DB
     const axiosPostData = async() => {
-        const postData = {
-            name: name,
-            phoneNumber: phoneNumber,
-            description: description,
-            reward: reward,
-            place: place,
-            image: image   
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('phoneNumber', phoneNumber);
+        formData.append('description', description);
+        formData.append('reward', reward);
+        formData.append('latitude', place.latitude);
+        formData.append('longitude', place.longitude);
+        if (image) {
+            formData.append('image', image);  
         }
         //await axios.post('http://localhost:4000/users/send', postData) ;/Send would be if we have an action
-        if (!name || !phoneNumber || !description || !reward || !place) {
+        if (!name || !phoneNumber || !description || !reward || !place.name || place.latitude === null || place.longitude === null) {
             setError(<p className="required">Please fill out all credentials.</p>)
         } else {
-            await axios.post('http://localhost:4000/posts/upload', postData)
+            await axios.post('http://localhost:4000/posts/upload', formData)
                 .then(res => setError(<p className = "success">{res.data}</p>))
+                //navigate('/quest-confirmation', { state: { name, phoneNumber, description, reward, place, image } });
+
         }
     }
 
@@ -98,8 +112,8 @@ export const PostQuest = () => {
                  <label htmlFor="place">Place</label>
                 <input
                     ref={placeInputRef}
-                    value={place}
-                    onChange={(e) => setPlace(e.target.value)}
+                    value={place.name}
+                    onChange={(e) => setPlace({...place, name: e.target.value})}
                     placeholder="What store would you like your item from?"
                     id="place"
                     name="place"

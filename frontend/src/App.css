@@ -91,8 +91,10 @@ button{
   color: rgb(24, 23, 47);
 }
 .quest-confirmation-container {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: flex-start; /* Aligns children at the start, reducing space between them */
+    align-items: stretch;
+    padding: 20px;
 }
 .quest-confirmation-wrapper {
   text-align: center;
@@ -101,15 +103,18 @@ button{
   padding-top: 350px;
   flex-grow: 1; 
   margin-right: 20px;
+  align-items: center;
   text-decoration: underline;
 }
 
 .map-container {
   padding: 20px;
-  border-radius: 10%;  
-  overflow: hidden;
-  width: 1000px;
-  height: 800px;
+    border-radius: 10%;
+    overflow: hidden;
+    width: 700px;
+    height: 800px;
+    margin-left: 20px;
+ 
 }
 
 /*==========================
