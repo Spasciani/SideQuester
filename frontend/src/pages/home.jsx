@@ -28,14 +28,7 @@ export default function Home () {
     await axios.get('http://localhost:4000/users/UserName')
     .then(res =>{
         if(processing){
-           // setSelectData(res.data)
-           if(isLoggedIn){
-               setSelectData(res.data)
-               console.log(displayName)
-               displayName = selectData
-           }else{
-       
-           }
+           setSelectData((res.data))
         }
     })
     .catch(err => console.log(err))
