@@ -92,8 +92,8 @@ router.post('/posts/:a', async(req, res)=>{
 //
 // })
 
-router.get('/posts/:a',async (req,res) => {
-    const posts = schemas.posts
+router.get('/posts/:a', async (req,res) => {
+    const posts = schemas.Posts
     const action = req.params.a
     switch(action) {
         case "all":

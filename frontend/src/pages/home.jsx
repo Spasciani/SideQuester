@@ -17,7 +17,9 @@ export default function Home () {
 
     useEffect( () => {
         let processing = true
+        console.log(quests)
         axiosFetchData(processing)
+        setQuestsLoaded(true)
         return () => {
             processing = false
         }
@@ -30,7 +32,8 @@ export default function Home () {
         await axios.get('http://localhost:4000/posts/all')
             .then(res =>{
                 if(processing){
-                    setSelectData((res.data))
+                    //setSelectData((res.data))
+                    setQuests(res.data)
                 }
             })
             .catch(err => console.log(err))
@@ -44,7 +47,40 @@ export default function Home () {
             <div>
                 <h2> Home Page </h2>
                 <label>Hello {emailDisplay}</label>
-                <QuestsDisplay quests={quests} questsLoaded={questsLoaded} />
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Phone Number
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Reward
+                            </th>
+                            <th>
+                                Place
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            quests.map(quest =>{
+                                return <tr>
+                                    <td>{quest.name}</td>
+                                    <td>{quest.phoneNumber}</td>
+                                    <td>{quest.description}</td>
+                                    <td>{quest.reward}</td>
+                                    <td>{quest.place}</td>
+                                </tr>
+                            })
+                        }
+                    </tbody>
+                </table>
             </div>
         </>
     )
