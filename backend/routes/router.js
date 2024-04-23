@@ -73,6 +73,25 @@ router.post('/posts/:a', async(req, res)=>{
 
 })
 
+//recieve user data
+router.get('/users/:a', async(req, res) =>{
+    const users = schemas.Users
+    const action = req.params.a
+    switch(action){
+        case "UserName":
+            const UserName = {email: email}
+            UserName = await users.findOne({email: window.localStorage.getItem("token")})
+            if(UserName){
+                res.send(JSON.stringify(UserName.name))
+            }
+            break
+        default:
+            break
+    }
+    res.end()
+    
+})
+
 // router.get('/users', async(req, res) => {
 //     const users = schemas.Users
 //     const userData = {name: name, email: email, password: password}
@@ -81,6 +100,8 @@ router.post('/posts/:a', async(req, res)=>{
 //         res.send(JSON.stringify(userData))
 //     }
 // })
+
+
 //Example of communication between front and back
 /*
 router.get('/users', (req, res) => {
