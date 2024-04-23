@@ -13,6 +13,7 @@ export const PostQuest = () => {
     const [image, setImage] = useState(null);
     const [error, setError] = useState('')
     const navigate = useNavigate();
+    
     useEffect(() => {
         if (!placeInputRef.current) return;
 
@@ -59,7 +60,6 @@ export const PostQuest = () => {
         } else {
             await axios.post('http://localhost:4000/posts/upload', postData)
                 .then(res => setError(<p className = "success">{res.data}</p>))
-
         }
     }
 
@@ -123,9 +123,7 @@ export const PostQuest = () => {
                     onChange={handleImageChange}
                     style={{ marginBottom: '20px' }}
                 />
-
-
-                <button type="submit">Post Quest</button>
+                <button type="submit" style={{position: 'relative'}}>Post Quest</button>
             </form>
             <Link to="/" className='link-btn'>Go back to home</Link>
         </div>
