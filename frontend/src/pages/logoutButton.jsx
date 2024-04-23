@@ -1,8 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+
+
 const LogoutButton = () => {
     const navigate = useNavigate();
     const handleLogout = () => {
+        window.localStorage.removeItem("token")
+        window.localStorage.removeItem("loggedIn")
         navigate('/login');
     };
     return (
