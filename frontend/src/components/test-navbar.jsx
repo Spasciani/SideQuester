@@ -25,7 +25,7 @@ const Test_Navbar = () => {
     return (
       <>
         <nav ref={ref} className="test-navbar">
-            <button className="toggle" onClick={() => setNavbarOpen((prev) => !prev)}>
+            <button className="NavBarToggle" onClick={() => setNavbarOpen((prev) => !prev)}>
             {navbarOpen ? (<MdClose style={{ width: '32px', height: '32px' }} />) : 
                           (<FiMenu style={{width: '32px', height: '32px',}}/>)}
             </button>

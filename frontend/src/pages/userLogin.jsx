@@ -48,7 +48,7 @@ export const UserLogin = (props) => {
 
             {error}
 
-            <button type="submit">Log In</button>
+            <button type="submit" style={{position: 'relative'}}>Log In</button>
         </form>
         <Link to="/register" className='link-btn'>Don't have an account? Register here! </Link>
         </div>
