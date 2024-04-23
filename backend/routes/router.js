@@ -34,6 +34,7 @@ router.post('/users/:a', async(req, res) => {
             if (!attempt) {
                 res.send({message: 'Invalid email or password'})
             } else {
+                const token = email
                 res.send({message: 'Login successful! Redirecting...', redirect: '/'})
             }
             break

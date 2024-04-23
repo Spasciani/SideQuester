@@ -11,6 +11,7 @@ import QuestConfirmation from './pages/afterPost';
 import Test_Navbar from "./components/test-navbar";
 
 export default function App(){
+  const isLoggedIn = window.localStorage.getItem("loggedIn");
   const [setCurrentForm] = useState('login');
   const toggleForm= (forName) => {
     setCurrentForm(forName);
@@ -21,7 +22,7 @@ export default function App(){
         <Test_Navbar/>
         {/* <Navbar/> */}
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Home/>} />
           <Route path="/login" element={<UserLogin onFormSwitch={toggleForm} />} />
           <Route path="/register" element={<UserRegister onFormSwitch={toggleForm} />} />
           <Route path="/map" element={<MapComponent />} />
