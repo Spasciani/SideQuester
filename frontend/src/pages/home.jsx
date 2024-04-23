@@ -15,14 +15,26 @@ export default function Home () {
   
       //Insert into firebase
 
-    useEffect(function() {
-        console.log(DATABASE);
-        setQuests(DATABASE);
+    useEffect( () => {
+        let processing = true
+        axiosFetchData(processing)
+        return () => {
+            processing = false
+        }
+    },[])
 
-        //Change loading status
-        setQuestsLoaded(true);
-    }, []);
+    const isLoggedIn = window.localStorage.getItem("loggedIn");
+    const displayName = ", Please Login";
 
+    const axiosFetchData = async(processing) =>{
+        await axios.get('http://localhost:4000/posts/all')
+            .then(res =>{
+                if(processing){
+                    setSelectData((res.data))
+                }
+            })
+            .catch(err => console.log(err))
+    }
 
     const emailDisplay = window.localStorage.getItem("token")
 
