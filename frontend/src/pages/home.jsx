@@ -1,7 +1,27 @@
 import { useState, useEffect } from "react"
 import axios from "axios"
+import QuestsDisplay from "../components/quest-display";
+
+var DATABASE = [{
+    msg: "hello world",
+    type: "please",
+    time: "i beg"
+  }];
 
 export default function Home () {
+    const [selectData, setSelectData] = useState('')
+    var [quests, setQuests] = useState([]);
+    var [questsLoaded, setQuestsLoaded] = useState(false);
+  
+      //Insert into firebase
+
+    useEffect(function() {
+        console.log(DATABASE);
+        setQuests(DATABASE);
+
+        //Change loading status
+        setQuestsLoaded(true);
+    }, []);
     /*
     const [selectData, setSelectData] = useState([])
     const [displayName, setDisplayName] = useState('')
@@ -46,10 +66,10 @@ export default function Home () {
     return (
         <>
             <div>
-            <h2> Home Page </h2>
-            <label>Hello {emailDisplay}</label>
+                <h2> Home Page </h2>
+                <label>Hello {displayName}</label>
+                <QuestsDisplay quests={quests} questsLoaded={questsLoaded} />
             </div>
-
         </>
     )
 };

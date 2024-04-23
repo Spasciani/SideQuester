@@ -12,20 +12,13 @@ export const UserLogin = (props) => {
             email: email,
             password: password
         }
-        const isLoggedin = window.localStorage.getItem("loggedIn")
-        console.log(isLoggedin)
         //await axios.post('http://localhost:4000/users/send', postData) ;/Send would be if we have an action
-        if(isLoggedin){
-            console.log("already logged in")
-            setError(<p className="required">Already logged in.</p>)
-        }else if (!email || !password) {
+        if (!email || !password) {
             setError(<p className="required">Please fill out all credentials.</p>)
         } else {
             await axios.post('http://localhost:4000/users/log-in', postData)
                 .then(function (res) {
                     setError(<p className = "success">{res.data.message}</p>)
-                    window.localStorage.setItem("token", email)
-                    window.localStorage.setItem("loggedIn", true)
                     if(res.data.redirect === '/') {
                         window.location = '/'
                     }
