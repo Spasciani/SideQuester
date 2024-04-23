@@ -1,7 +1,10 @@
 import React from 'react';
-
-const QuestConfirmation = ({ name, phoneNumber, description, reward, place }) => {
+import { useLocation } from 'react-router-dom';
+const QuestConfirmation = () => {
     const mapRef = React.useRef(null);
+    const location = useLocation();
+    const { name, phoneNumber, description, reward, place, image } = location.state;
+
 
     React.useEffect(() => {
         const loadMap = () => {
@@ -26,6 +29,7 @@ const QuestConfirmation = ({ name, phoneNumber, description, reward, place }) =>
                 <p><strong>Description:</strong> {description}</p>
                 <p><strong>Reward:</strong> {reward}</p>
                 <p><strong>Place:</strong> {place}</p>
+                {image && <img src={URL.createObjectURL(image)} alt="Uploaded" />}
             </div>
             <div ref={mapRef} className="map-container" style={{ flex: 3, minHeight: '500px' }}>
             </div>

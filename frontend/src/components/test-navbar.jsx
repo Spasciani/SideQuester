@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom'; 
 import { MdClose } from 'react-icons/md';
 import { FiMenu } from 'react-icons/fi';
+import LogoutButton from '../pages/logoutButton';
 
 const Test_Navbar = () => {
     const ref = useRef();
@@ -38,6 +39,9 @@ const Test_Navbar = () => {
                 <p className='menu-text'><Link to="/post-quest">Post Quest</Link></p>
                 <p className='menu-text'><Link to="/quest-confirmation">Quest Confirmation</Link></p>
             </ul>
+            <div className="logout-container">
+                <LogoutButton />
+            </div>
         </nav>
         {/* ... */}
       </>
