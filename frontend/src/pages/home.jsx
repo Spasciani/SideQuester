@@ -2,16 +2,11 @@ import { useState, useEffect } from "react"
 import axios from "axios"
 
 export default function Home () {
-    const [selectData, setSelectData] = useState('')
-    
     /*
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        window.localStorage.removeItem("token");
-        window.localStorage.removeItem("loggedIn")
-
-    }
-    */
+    const [selectData, setSelectData] = useState([])
+    const [displayName, setDisplayName] = useState('')
+    
+    
 
     useEffect( () => {
         let processing = true
@@ -22,7 +17,8 @@ export default function Home () {
     },[])
 
     const isLoggedIn = window.localStorage.getItem("loggedIn");
-    const displayName = ", Please Login";
+ 
+
 
    const axiosFetchData = async(processing) =>{
     await axios.get('http://localhost:4000/users/UserName')
@@ -31,26 +27,29 @@ export default function Home () {
            // setSelectData(res.data)
            if(isLoggedIn){
                setSelectData(res.data)
-               console.log(displayName)
-               displayName = selectData
+               //let displayName = selectData
+               setDisplayName(res.data)
+               //console.log(displayName)
+               //setdisplayName = selectData
            }else{
-       
+            //displayName = ", Please Login"
            }
         }
     })
     .catch(err => console.log(err))
    }
 
-
+  */
+ const emailDisplay = window.localStorage.getItem("token")
 
     
     return (
         <>
+            <div>
             <h2> Home Page </h2>
-            <label>Hello {displayName}</label>
+            <label>Hello {emailDisplay}</label>
+            </div>
 
-
-            
         </>
     )
 };
