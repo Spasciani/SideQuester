@@ -125,7 +125,7 @@ export const PostQuest = () => {
                 />
 
 
-                <button type="submit" style={{position: 'relative'}}>Post Quest</button>
+                <button type="submit">Post Quest</button>
             </form>
             <Link to="/" className='link-btn'>Go back to home</Link>
         </div>
