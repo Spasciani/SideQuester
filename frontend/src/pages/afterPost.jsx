@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 const QuestConfirmation = () => {
     const mapRef = React.useRef(null);
     const location = useLocation();
-    const { name, phoneNumber, description, reward, place, image } = location.state;
+    const { name, phoneNumber, description, reward, place, image } = location.state || {};
 
 
     React.useEffect(() => {
