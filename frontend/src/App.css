@@ -163,12 +163,22 @@ Sidebar navigation
   font-size: 15px;
 }
 /* logout */
-.logout {
+.logout-button {
+  border:black;
+  background-color:transparent;
+  width: 300px;
+  padding: 6px;
+  border-radius: 10px;
+  font-size: 20px;
+  cursor:pointer;
+}
+.logout-container {
   position: absolute;
-  right: 30px;
-  top: 40px;
+  right: 2px;
+  top: 10px;
   display: flex;
   gap: 2rem;
-  font-size: 20px;
-  color: #005bb3;
+  color: #005bb3; 
+  background-color: transparent; 
+  border: none;
 }
