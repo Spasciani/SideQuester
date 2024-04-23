@@ -118,7 +118,7 @@ Sidebar navigation
 .navbar {
   position: relative;
 }
-button {
+.NavBarToggle {
   cursor: pointer;
   background: transparent;;
   border: none;
@@ -127,14 +127,6 @@ button {
   top: 10px;
   left: 10px;
   width: 100px;
-}
-.navbar .toggle {
-  position: fixed;
-  left: 30px;
-  top: 40px;
-  cursor: pointer;
-  background: transparent;;
-  border: none;
 }
 .menu-nav {
   list-style: none;

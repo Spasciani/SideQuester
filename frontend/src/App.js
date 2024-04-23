@@ -21,7 +21,7 @@ export default function App(){
         <Test_Navbar/>
         {/* <Navbar/> */}
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/login" element={<UserLogin onFormSwitch={toggleForm} />} />
           <Route path="/register" element={<UserRegister onFormSwitch={toggleForm} />} />
           <Route path="/map" element={<MapComponent />} />
