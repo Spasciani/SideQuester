@@ -74,22 +74,37 @@ router.post('/posts/:a', async(req, res)=>{
 })
 
 //recieve user data
-router.get('/users/:a', async(req, res) =>{
-    const users = schemas.Users
+// router.get('/users/:a', async(req, res) =>{
+//     const users = schemas.Users
+//     const action = req.params.a
+//     switch(action){
+//         case "UserName":
+//             const UserName = {email: email}
+//             UserName = await users.findOne({email: window.localStorage.getItem("token")})
+//             if(UserName){
+//                 res.send(JSON.stringify(UserName.name))
+//             }
+//             break
+//         default:
+//             break
+//     }
+//     res.end()
+//
+// })
+
+router.get('/posts/:a', async (req,res) => {
+    const posts = schemas.Posts
     const action = req.params.a
-    switch(action){
-        case "UserName":
-            const UserName = {email: email}
-            UserName = await users.findOne({email: window.localStorage.getItem("token")})
-            if(UserName){
-                res.send(JSON.stringify(UserName.name))
-            }
+    switch(action) {
+        case "all":
+            const all_posts = await posts.find({}).exec()
+            if (all_posts)
+                res.send(JSON.stringify(all_posts))
             break
         default:
             break
     }
     res.end()
-    
 })
 
 // router.get('/users', async(req, res) => {
