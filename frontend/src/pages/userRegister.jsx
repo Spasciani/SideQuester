@@ -51,6 +51,8 @@ export const UserRegister = (props) => {
             await axios.post('http://localhost:4000/users/register', postData)
                 .then(function (res) {
                     setError(<p className = "success">{res.data.message}</p>)
+                    window.localStorage.removeItem("token")
+                    window.localStorage.removeItem("loggedIn")
                     if(res.data.redirect === '/login') {
                         window.location = '/login'
                     }
