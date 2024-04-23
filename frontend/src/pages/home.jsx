@@ -3,9 +3,12 @@ import axios from "axios"
 import QuestsDisplay from "../components/quest-display";
 
 var DATABASE = [{
-    msg: "hello world",
-    type: "please",
-    time: "i beg"
+    name: "name",
+    phoneNumber: "phoneNumber",
+    description: "description",
+    reward: "reward",
+    place: "place",
+    image: "image"
   }];
 
 export default function Home () {
