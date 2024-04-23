@@ -18,22 +18,6 @@ export default function Home () {
   
       //Insert into firebase
 
-    useEffect(function() {
-        console.log(DATABASE);
-        setQuests(DATABASE);
-
-        //Change loading status
-        setQuestsLoaded(true);
-    }, []);
-    /*
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        window.localStorage.removeItem("token");
-        window.localStorage.removeItem("loggedIn")
-
-    }
-    */
-
     useEffect( () => {
         let processing = true
         axiosFetchData(processing)
@@ -45,41 +29,26 @@ export default function Home () {
     const isLoggedIn = window.localStorage.getItem("loggedIn");
     const displayName = ", Please Login";
 
-   const axiosFetchData = async(processing) =>{
-    await axios.get('http://localhost:4000/users/UserName')
-    .then(res =>{
-        if(processing){
-           // setSelectData(res.data)
-           if(isLoggedIn){
-               setSelectData(res.data)
-               console.log(displayName)
-               displayName = selectData
-           }else{
-       
-           }
-        }
-    })
-    .catch(err => console.log(err))
-   }
+    const axiosFetchData = async(processing) =>{
+        await axios.get('http://localhost:4000/posts/all')
+            .then(res =>{
+                if(processing){
+                    setSelectData((res.data))
+                }
+            })
+            .catch(err => console.log(err))
+    }
 
-
+    const emailDisplay = window.localStorage.getItem("token")
 
     
     return (
         <>
             <div>
                 <h2> Home Page </h2>
-                <label>Hello {displayName}</label>
+                <label>Hello {emailDisplay}</label>
                 <QuestsDisplay quests={quests} questsLoaded={questsLoaded} />
             </div>
         </>
     )
 };
-
-/* 
-            <form className="logout-form" onSubmit={handleSubmit}>
-            <label>Hello</label>
-
-            <button type="submit">Log Out</button>
-            </form>
-*/
