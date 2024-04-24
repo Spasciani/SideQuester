@@ -23,28 +23,48 @@ const Test_Navbar = () => {
         document.removeEventListener('mousedown', handler);
       };
     }, [navbarOpen]);
-    return (
-      <>
-        <nav ref={ref} className="test-navbar">
-            <button className="NavBarToggle" onClick={() => setNavbarOpen((prev) => !prev)}>
-            {navbarOpen ? (<MdClose style={{ width: '32px', height: '32px' }} />) : 
-                          (<FiMenu style={{width: '32px', height: '32px',}}/>)}
-            </button>
+    if (window.localStorage.getItem("token")) {
+        return (
+            <>
+                <nav ref={ref} className="test-navbar">
+                    <button className="NavBarToggle" onClick={() => setNavbarOpen((prev) => !prev)}>
+                        {navbarOpen ? (<MdClose style={{ width: '32px', height: '32px' }} />) :
+                            (<FiMenu style={{width: '32px', height: '32px',}}/>)}
+                    </button>
 
-            <ul className={`menu-nav${navbarOpen ? ' show-menu' : ''}`}>
-                <p className='menu-text'><Link to="/home">Home</Link></p>
-                <p className='menu-text'><Link to="/login">Login</Link></p>
-                <p className='menu-text'><Link to="/register">Register</Link></p>
-                <p className='menu-text'><Link to="/map">Map</Link></p>
-                <p className='menu-text'><Link to="/post-quest">Post Quest</Link></p>
-                <p className='menu-text'><Link to="/quest-confirmation">Quest Confirmation</Link></p>
-            </ul>
-            <div className="logout-container">
-                <LogoutButton />
-            </div>
-        </nav>
-        {/* ... */}
-      </>
-  );
+                    <ul className={`menu-nav${navbarOpen ? ' show-menu' : ''}`}>
+                        <p className='menu-text'><Link to="/home">Home</Link></p>
+                        <p className='menu-text'><Link to="/map">Map</Link></p>
+                        <p className='menu-text'><Link to="/post-quest">Post Quest</Link></p>
+                        <p className='menu-text'><Link to="/quest-confirmation">Quest Confirmation</Link></p>
+                    </ul>
+                    <div className="logout-container">
+                        <LogoutButton />
+                    </div>
+                </nav>
+                {/* ... */}
+            </>
+        );
+    } else {
+        return (
+            <>
+                <nav ref={ref} className="test-navbar">
+                    <button className="NavBarToggle" onClick={() => setNavbarOpen((prev) => !prev)}>
+                        {navbarOpen ? (<MdClose style={{ width: '32px', height: '32px' }} />) :
+                            (<FiMenu style={{width: '32px', height: '32px',}}/>)}
+                    </button>
+
+                    <ul className={`menu-nav${navbarOpen ? ' show-menu' : ''}`}>
+                        <p className='menu-text'><Link to="/home">Home</Link></p>
+                        <p className='menu-text'><Link to="/login">Login</Link></p>
+                        <p className='menu-text'><Link to="/register">Register</Link></p>
+                        <p className='menu-text'><Link to="/map">Map</Link></p>
+                    </ul>
+                </nav>
+                {/* ... */}
+            </>
+        );
+    }
+
 };
 export default Test_Navbar;

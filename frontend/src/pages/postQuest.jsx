@@ -56,21 +56,22 @@ export const PostQuest = () => {
 
     //Handle sending the data to DB
     const axiosPostData = async() => {
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('phoneNumber', phoneNumber);
-        formData.append('description', description);
-        formData.append('reward', reward);
-        formData.append('latitude', place.latitude);
-        formData.append('longitude', place.longitude);
-        if (image) {
-            formData.append('image', image);  
+        const quest = {
+            name: name,
+            phoneNumber: phoneNumber,
+            description: description,
+            place: place.name,
+            longitude: place.longitude,
+            latitude: place.latitude,
+            reward: reward,
+            image: image
         }
+
         //await axios.post('http://localhost:4000/users/send', postData) ;/Send would be if we have an action
         if (!name || !phoneNumber || !description || !reward || !place.name || place.latitude === null || place.longitude === null) {
             setError(<p className="required">Please fill out all credentials.</p>)
         } else {
-            await axios.post('http://localhost:4000/posts/upload', formData)
+            await axios.post('http://localhost:4000/posts/upload', quest)
                 .then(res => setError(<p className = "success">{res.data}</p>))
                 //navigate('/quest-confirmation', { state: { name, phoneNumber, description, reward, place, image } });
 

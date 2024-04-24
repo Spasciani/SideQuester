@@ -24,10 +24,10 @@ export const UserLogin = (props) => {
             await axios.post('http://localhost:4000/users/log-in', postData)
                 .then(function (res) {
                     setError(<p className = "success">{res.data.message}</p>)
-                    window.localStorage.setItem("token", email)
+                    window.localStorage.setItem("token", res.data.user)
                     window.localStorage.setItem("loggedIn", true)
-                    if(res.data.redirect === '/') {
-                        window.location = '/'
+                    if(res.data.redirect === '/home') {
+                        window.location = '/home'
                     }
                 })
 

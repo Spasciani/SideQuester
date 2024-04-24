@@ -8,6 +8,7 @@ const LogoutButton = () => {
         window.localStorage.removeItem("token")
         window.localStorage.removeItem("loggedIn")
         navigate('/login');
+        window.location.reload()
     };
     return (
         <button onClick={handleLogout} className="logout-button">

@@ -34,8 +34,7 @@ router.post('/users/:a', async(req, res) => {
             if (!attempt) {
                 res.send({message: 'Invalid email or password'})
             } else {
-                const token = email
-                res.send({message: 'Login successful! Redirecting...', redirect: '/'})
+                res.send({user: attempt, message: 'Login successful! Redirecting...', redirect: '/home'})
             }
             break
 
@@ -55,11 +54,11 @@ router.post('/users/:a', async(req, res) => {
 
 //create post
 router.post('/posts/:a', async(req, res)=>{
-    const {name, phoneNumber, description, reward, place} = req.body
+    const {name, phoneNumber, description, reward, place, longitude, latitude} = req.body
     const action = req.params.a
     switch(action) {
         case "upload":
-            const postData = {name: name, phoneNumber: phoneNumber, description: description, reward: reward, place: place}
+            const postData = {name: name, phoneNumber: phoneNumber, description: description, reward: reward, place: place, longitude: longitude, latitude: latitude}
             const newPost = new schemas.Posts(postData)
             const savePost = await newPost.save()
             res.send('Post Created!')

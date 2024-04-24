@@ -43,48 +43,58 @@ export default function Home () {
     }
 
     const emailDisplay = window.localStorage.getItem("token")
-
-    
-    return (
+    if (emailDisplay) {
+        return (
         <>
             <div>
-                <h2> Home Page </h2>
-                <label>Hello {emailDisplay}</label>
+                <h2> Quests </h2>
+                <label>Hello {emailDisplay}! Here are all the available quests: </label>
                 <table>
                     <thead>
-                        <tr>
-                            <th>
-                                Name
-                            </th>
-                            <th>
-                                Phone Number
-                            </th>
-                            <th>
-                                Description
-                            </th>
-                            <th>
-                                Reward
-                            </th>
-                            <th>
-                                Place
-                            </th>
-                        </tr>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Phone Number
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Reward
+                        </th>
+                        <th>
+                            Place
+                        </th>
+                    </tr>
                     </thead>
                     <tbody>
-                        {
-                            quests.map(quest =>{
-                                return <tr>
-                                    <td>{quest.name}</td>
-                                    <td>{quest.phoneNumber}</td>
-                                    <td>{quest.description}</td>
-                                    <td>{quest.reward}</td>
-                                    <td>{quest.place}</td>
-                                </tr>
-                            })
-                        }
+                    {
+                        quests.map(quest =>{
+                            return <tr>
+                                <td>{quest.name}</td>
+                                <td>{quest.phoneNumber}</td>
+                                <td>{quest.description}</td>
+                                <td>{quest.reward}</td>
+                                <td>{quest.place}</td>
+                            </tr>
+                        })
+                    }
                     </tbody>
                 </table>
             </div>
         </>
-    )
+        )
+    } else {
+        return (
+        <>
+            <div>
+                <h2> Quests </h2>
+                <label>Hello, please login to view all quests! </label>
+            </div>
+        </>
+        )
+    }
+
 };

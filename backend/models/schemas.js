@@ -21,7 +21,9 @@ const postSchema = new Schema({
     description: {type: String, required: true},
     reward: {type:String, required: true},
     place: {type:String, required: true},
-    image: {type:String, required: false},
+    longitude: {type:Number, required: true},
+    latitude: {type:Number, required: true},
+    image: {type:String, required: false}
 
 })
 

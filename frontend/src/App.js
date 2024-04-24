@@ -15,6 +15,7 @@ export default function App(){
   const toggleForm= (forName) => {
     setCurrentForm(forName);
   }
+
   return(
     <Router>
       <div className="App">
