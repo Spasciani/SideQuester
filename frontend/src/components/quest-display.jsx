@@ -4,7 +4,7 @@ import Quest from "./quest";
 export default function QuestsDisplay({ quests, questsLoaded }) {
   function getQuests() {
     if (questsLoaded) {
-      return quests.map(function(questItem, i) {
+      return quests?.map(function(questItem,i) {
         return <Quest key={i} questItem={questItem} />;
       });
     } else {
@@ -22,7 +22,7 @@ export default function QuestsDisplay({ quests, questsLoaded }) {
         padding: "20px"
       }}
     >
-      <h2>Quests</h2>
+      <h2>Available Quests</h2>
 
       {getQuests()}
     </div>

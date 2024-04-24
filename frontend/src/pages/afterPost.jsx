@@ -5,12 +5,12 @@ const defaultCenter = { lat: 29.6463314, lng: -82.353945};
 const QuestConfirmation = () => {
     const mapRef = useRef(null);
     const location = useLocation();
-    
-    const { name, phoneNumber, description, reward, place, image } = location.state || {};
+
+    const { name, phoneNumber, description, reward, latitude, longitude, place, image } = location.state || {};
      useEffect(() => {
         const loadMap = () => {
-            const center = place && place.latitude && place.longitude
-                ? { lat: place.latitude, lng: place.longitude }
+            const center = place && latitude && longitude
+                ? { lat: latitude, lng: longitude }
                 : defaultCenter;
 
             const map = new window.google.maps.Map(mapRef.current, {
@@ -21,7 +21,7 @@ const QuestConfirmation = () => {
             new window.google.maps.Marker({
                 position: center,
                 map: map,
-                title: place ? place.name || 'Selected Location' : 'Default Location'
+                title: place ? place || 'Selected Location' : 'Default Location'
             });
         };
 
@@ -36,7 +36,7 @@ const QuestConfirmation = () => {
                 <p><strong>Phone Number:</strong> {phoneNumber}</p>
                 <p><strong>Description:</strong> {description}</p>
                 <p><strong>Reward:</strong> {reward}</p>
-                <p><strong>Place:</strong> {place ? place.name : 'Not provided'}</p>
+                <p><strong>Place:</strong> {place ? place : 'Not provided'}</p>
                 <div>
                     <strong>Image (Optional):</strong>
                     {image && <img src={image} alt="Uploaded Quest" style={{ width: '400px', display: 'block', marginTop: '10px' }} />}

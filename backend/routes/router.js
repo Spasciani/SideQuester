@@ -34,7 +34,16 @@ router.post('/users/:a', async(req, res) => {
             if (!attempt) {
                 res.send({message: 'Invalid email or password'})
             } else {
-                res.send({user: attempt, message: 'Login successful! Redirecting...', redirect: '/home'})
+                res.send({user: email, message: 'Login successful! Redirecting...', redirect: '/home'})
+            }
+            break
+
+        case "curloggedin":
+            const user = await schemas.Users.findOne({email: email})
+            if(user) {
+                res.send(user.name)
+            } else {
+                res.send('not found')
             }
             break
 
@@ -54,14 +63,14 @@ router.post('/users/:a', async(req, res) => {
 
 //create post
 router.post('/posts/:a', async(req, res)=>{
-    const {name, phoneNumber, description, reward, place, longitude, latitude} = req.body
+    const {email, name, phoneNumber, description, reward, place, longitude, latitude} = req.body
     const action = req.params.a
     switch(action) {
         case "upload":
-            const postData = {name: name, phoneNumber: phoneNumber, description: description, reward: reward, place: place, longitude: longitude, latitude: latitude}
+            const postData = {email: email, name: name, phoneNumber: phoneNumber, description: description, reward: reward, place: place, longitude: longitude, latitude: latitude}
             const newPost = new schemas.Posts(postData)
             const savePost = await newPost.save()
-            res.send('Post Created!')
+            res.send('Quest Created!')
             break
         
         default:
@@ -74,14 +83,15 @@ router.post('/posts/:a', async(req, res)=>{
 
 //recieve user data
 // router.get('/users/:a', async(req, res) =>{
-//     const users = schemas.Users
+//     const {email} = req.body
 //     const action = req.params.a
 //     switch(action){
-//         case "UserName":
-//             const UserName = {email: email}
-//             UserName = await users.findOne({email: window.localStorage.getItem("token")})
-//             if(UserName){
-//                 res.send(JSON.stringify(UserName.name))
+//         case "curloggedin":
+//             const user = await schemas.Users.findOne({email: email})
+//             if(user) {
+//                 res.send('found')
+//             } else {
+//                 res.send('not found')
 //             }
 //             break
 //         default:
@@ -98,7 +108,7 @@ router.get('/posts/:a', async (req,res) => {
         case "all":
             const all_posts = await posts.find({}).exec()
             if (all_posts)
-                res.send(JSON.stringify(all_posts))
+                res.send((all_posts))
             break
         default:
             break

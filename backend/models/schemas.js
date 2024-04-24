@@ -16,6 +16,7 @@ const userSchema = new Schema({
 
 //Schema for post creation
 const postSchema = new Schema({
+    email: {type:String, required: true},
     name: {type:String, required: true},
     phoneNumber: {type:String, required: true},
     description: {type: String, required: true},

@@ -16,7 +16,6 @@ export const PostQuest = () => {
     const navigate = useNavigate();
     const [place, setPlace] = useState({ name: '', latitude: null, longitude: null });
 
-    
     useEffect(() => {
         if (!placeInputRef.current) return;
         const autocomplete = new window.google.maps.places.Autocomplete(placeInputRef.current);
@@ -40,10 +39,10 @@ export const PostQuest = () => {
         console.log(name, phoneNumber, description, reward, place);
         if (image) {
             console.log('Image name:', image.name);
-            const imageUrl = URL.createObjectURL(image); 
-            navigate('/quest-confirmation', { state: { name, phoneNumber, description, reward, place, image: imageUrl } });
+            const imageUrl = URL.createObjectURL(image);
+            navigate('/quest-confirmation', { state: { name: name, phoneNumber, description, reward, place: place.name, longitude: place.longitude, latitude: place.latitude, image: imageUrl } });
         } else {
-            navigate('/quest-confirmation', { state: { name, phoneNumber, description, reward, place, image: null } });
+            navigate('/quest-confirmation', { state: { name : name, phoneNumber: phoneNumber, description: description, reward: reward, place: place.name, longitude: place.longitude, latitude: place.latitude, image: null } });
         }
     };
     const handleImageChange = (e) => {
@@ -57,6 +56,7 @@ export const PostQuest = () => {
     //Handle sending the data to DB
     const axiosPostData = async() => {
         const quest = {
+            email: window.localStorage.getItem("token"),
             name: name,
             phoneNumber: phoneNumber,
             description: description,
@@ -82,7 +82,7 @@ export const PostQuest = () => {
         <div className="quest-container">
             <h2>Post Your Quest!</h2>
             <form className="quest-form" onSubmit={handleSubmit}>
-                <label htmlFor="name">Name</label>
+                <label htmlFor="name">Display Name</label>
                 <input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
