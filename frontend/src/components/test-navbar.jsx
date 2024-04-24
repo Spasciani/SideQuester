@@ -36,7 +36,6 @@ const Test_Navbar = () => {
                         <p className='menu-text'><Link to="/home">Home</Link></p>
                         <p className='menu-text'><Link to="/map">Map</Link></p>
                         <p className='menu-text'><Link to="/post-quest">Post Quest</Link></p>
-                        <p className='menu-text'><Link to="/quest-confirmation">Quest Confirmation</Link></p>
                     </ul>
                     <div className="logout-container">
                         <LogoutButton />
